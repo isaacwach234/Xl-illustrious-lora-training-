@@ -1,2 +1,7 @@
 # Xl-illustrious-lora-training-
-A lora trainer notebook for training illustrious loras
+
+A LoRA trainer notebook for training Illustrious LoRAs.
+
+## Documentation
+
+- [Lambda Stack 22.04 arm64 environment setup](docs/setup.md)
