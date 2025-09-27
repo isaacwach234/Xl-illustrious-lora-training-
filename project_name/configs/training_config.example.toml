@@ -1,0 +1,44 @@
+# Example training configuration for the Illustrious XL LoRA notebook.
+# Every field is consumed by the "0. Load training configuration" cell inside Illustriousxlnotebook.ipynb.
+
+[experiment]
+# Displayed in "1. Run metadata" widget and prefixes output folders/log files.
+run_name = "xl_lora_example"
+# Directory created in "1. Run metadata" to store checkpoints, LoRA weights, and logs.
+output_dir = "outputs/xl_lora_example"
+# Seed applied in "1. Run metadata" to make training reproducible across restarts.
+seed = 42
+
+[model]
+# Base model pulled in "2. Model preparation"; set to any SDXL-compatible identifier or local path.
+pretrained_model_name_or_path = "stabilityai/stable-diffusion-xl-base-1.0"
+
+[optimizer]
+# Precision mode toggled in "3. Optimizer setup" (valid: "bf16", "fp16", "no").
+mixed_precision = "bf16"
+# Enables bitsandbytes AdamW in "3. Optimizer setup" to reduce VRAM use when true.
+use_8bit_adam = true
+
+[training]
+# Mini-batch size selected in "4. Training hyperparameters" (1-4 recommended for 24GB cards).
+train_batch_size = 2
+# Number of accumulation steps set in the same cell; effective batch = batch_size * gradient_accumulation_steps.
+gradient_accumulation_steps = 4
+# Learning rate slider in "4. Training hyperparameters"; tune between 5e-5 and 1e-3 for LoRA.
+learning_rate = 0.0001
+# Scheduler dropdown in "4. Training hyperparameters" (options: "constant", "cosine", "cosine_with_restarts").
+lr_scheduler = "cosine_with_restarts"
+# Warmup steps before LR schedule kicks in; matches numeric field in "4. Training hyperparameters".
+lr_warmup_steps = 100
+# Number of epochs the dataset is iterated over; align with the integer box in "4. Training hyperparameters".
+max_train_epochs = 10
+# Interval for saving intermediate checkpoints, configured in "5. Checkpointing".
+checkpointing_steps = 500
+# DataLoader workers value from "4. Training hyperparameters"; 0-8 typical on Linux workstations.
+dataloader_num_workers = 4
+
+[lora]
+# Rank slider in "6. LoRA configuration" (valid range 4-64; 8 works well for portraits).
+network_rank = 8
+# Scaling factor box in "6. LoRA configuration"; usually 1-2x the rank for SDXL.
+network_alpha = 16
