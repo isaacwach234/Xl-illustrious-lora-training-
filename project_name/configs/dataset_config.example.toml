@@ -1,0 +1,32 @@
+# Example dataset configuration for the Illustrious XL LoRA notebook.
+# The "0. Load dataset configuration" cell consumes these keys before building the dataset.
+
+[dataset]
+# Base path located by the file picker in "2. Dataset setup".
+root = "dataset"
+# Subdirectory under root containing the 100 training .jpg/.txt pairs.
+train_folder = "train"
+# Caption extension enforced in "2. Dataset setup"; one caption file per image.
+caption_extension = ".txt"
+# Image suffixes accepted by the notebook's loader (ensure lower-case for matching).
+image_extensions = [".jpg", ".png"]
+# Cap on how many pairs to ingest; the notebook stops counting after this many valid items.
+max_train_images = 100
+# Square resize applied during preprocessing in "2. Dataset setup"; SDXL LoRAs target 1024.
+resolution = 1024
+# Shuffle toggle in "2. Dataset setup" before reserving validation previews.
+shuffle_before_validation = true
+
+[validation]
+# Prompt used in "7. Validation preview" to render example outputs.
+prompt = "A portrait of <sks-person> in cinematic lighting"
+# Negative prompt text area in "7. Validation preview".
+negative_prompt = "blurry, low quality"
+# Number of preview images the notebook will request when validation runs.
+num_images = 4
+
+[concept]
+# Trigger word typed into "6. LoRA configuration" to bind the learned concept.
+trigger_token = "<sks-person>"
+# Weight slider in "6. LoRA configuration" balancing prior preservation (0.0-1.0 typical).
+prior_loss_weight = 0.1
